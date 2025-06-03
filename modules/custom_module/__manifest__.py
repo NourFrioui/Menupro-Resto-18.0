@@ -54,7 +54,7 @@
                 'custom_module/static/src/xml/saver_screen_inherit.xml',
                 'custom_module/static/src/xml/cashier_name_inherit.xml',
                 'custom_module/static/src/xml/order_change_receipt_template_inherit.xml',
-                #'custom_module/static/src/js/pos_navbar_inherit.js',
+                'custom_module/static/src/js/pos_navbar_inherit.js',
                 'custom_module/static/src/js/pos_store_inherit.js',
                 'custom_module/static/src/js/pos_order_inherit.js',
                 'custom_module/static/src/js/floor_screen_inherit.js',
@@ -62,6 +62,9 @@
                 'custom_module/static/src/js/pos_order_inherit.js',
                 'custom_module/static/src/js/action_widget_inherit.js',
                 'custom_module/static/src/js/hw_printer_inherited.js',
+                'custom_module/static/src/xml/pos_navbar_template_inherit.xml',
+
+                'custom_module/static/src/xml/pos_navbar_template_inherit.xml'
                 #'custom_module/static/src/js/pos_bus_inherited.js',
                 'custom_module/static/src/xml/pos_discount_control_buttons_inherit.xml',
                 'custom_module/static/src/xml/point_of_sale_control_buttons_inherit.xml',
