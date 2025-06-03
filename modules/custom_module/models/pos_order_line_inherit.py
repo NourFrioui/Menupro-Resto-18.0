@@ -6,16 +6,17 @@ _logger = logging.getLogger(__name__)
 
 
 class PosOrderLine(models.Model):
-    _inherit = "pos.order.line"
+    _inherit = 'pos.order.line'
 
+    menupro_id = fields.Char(string='Menu Pro ID')
     line_status = fields.Selection(
         selection=[
             ('draft', 'Draft'),
             ('sent', 'Sent to Kitchen'),
         ],
-        string="Order Line Status",
-        default="draft",
-        compute="_compute_line_status",
+        string='Order Line Status',
+        default='draft',
+        compute='_compute_line_status',
         store=True,
     )
 
