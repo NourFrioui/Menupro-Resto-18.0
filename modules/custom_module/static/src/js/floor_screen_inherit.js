@@ -60,4 +60,59 @@ patch(FloorScreen.prototype, {
         this.unselectTables();
 
     },
+
+    getChangeCount(table) {
+        const result = super.getChangeCount(table);
+        const tableOrders = this.pos.models["pos.order"].filter(
+            (o) => o.table_id?.id === table.id && !o.finalized
+        );
+        if (result.changes > 0 && tableOrders.length) {
+            for (const order of tableOrders) {
+                if (order.pos_reference?.includes('Self-Order')) {
+                    if (order.lastChangeCount === undefined) {
+                        order.lastChangeCount = 0;
+                    }
+                    if (order.lastLinesLength === undefined) {
+                        order.lastLinesLength = 0;
+                    }
+                    if (result.changes !== order.lastChangeCount || order.lastLinesLength !== order.lines.length) {
+                        if (order.table_id) {
+                            this.playSound('/custom_module/static/src/sounds/bell.wav');
+                            order.lastChangeCount = result.changes;
+                            order.lastLinesLength = order.lines.length;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        return result;
+    },
+
+
+
+
+    playSound(soundFile) {
+        fetch(soundFile, { method: 'HEAD' })
+            .then(response => {
+                if (response.ok) {
+                    const audio = new Audio(soundFile);
+                    audio.muted = true;
+                    audio.play().then(() => {
+                        audio.muted = false;
+                        audio.play().catch(error => {
+                            console.log('Error playing sound after unmuting:', error);
+                        });
+                    }).catch(error => {
+                        alert("Activez le son sur ce site pour entendre les notifications.");
+                    });
+                } else {
+                    console.log(`Sound file not accessible: ${soundFile}`);
+                }
+            })
+            .catch(error => {
+                console.log('Error fetching sound file:', error);
+            });
+    }
+
 });

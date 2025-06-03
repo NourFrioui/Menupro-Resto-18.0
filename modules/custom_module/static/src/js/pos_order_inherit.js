@@ -11,7 +11,7 @@ function generateLocalTicketNumber() {
 
     let newTicketNumber;
     if (lastResetDate !== todayString) {
-        newTicketNumber = 1;
+        newTicketNumber = 0;
         localStorage.setItem("pos.last_reset_date", todayString);
     } else {
         newTicketNumber = currentCounter + 1;
@@ -41,6 +41,8 @@ patch(PosOrder.prototype, {
 
     async setup(vals) {
         await super.setup(vals);
+        console.log("setup pos PosOrder",vals);
+
 
         try {
             const result = await getTicketNumber(parseInt(vals.id));
