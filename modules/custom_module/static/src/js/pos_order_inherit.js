@@ -11,7 +11,7 @@ function generateLocalTicketNumber() {
 
     let newTicketNumber;
     if (lastResetDate !== todayString) {
-        newTicketNumber = 1;
+        newTicketNumber = 0;
         localStorage.setItem("pos.last_reset_date", todayString);
     } else {
         newTicketNumber = currentCounter + 1;

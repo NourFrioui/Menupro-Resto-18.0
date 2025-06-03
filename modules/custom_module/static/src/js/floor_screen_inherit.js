@@ -60,4 +60,46 @@ patch(FloorScreen.prototype, {
         this.unselectTables();
 
     },
+    getChangeCount(table) {
+        console.log("this one")
+        super.getChangeCount(table);
+        const tableOrders = this.pos.models["pos.order"].filter(
+            (o) => o.table_id?.id === table.id && !o.finalized
+        );
+        console.log("tableOrders",tableOrders);
+        if (changeCount > 0 && Array.isArray(tableOrders) && tableOrders.length) {
+            for (const order of tableOrders) {
+                if (order.pos_reference?.includes('Self-Order')) {
+                    if (order.table_id) {
+                        console.log('🔊 Self-Order détectée pour la table :', order.table_id.id);
+                        this.playSound('/custom_module/static/src/sounds/bell.wav');
+                        break;
+                    }
+                }
+            }
+        }
+    },
+    playSound(soundFile) {
+        fetch(soundFile, { method: 'HEAD' })
+            .then(response => {
+                if (response.ok) {
+                    const audio = new Audio(soundFile);
+                    audio.muted = true;
+                    audio.play().then(() => {
+                        audio.muted = false;
+                        audio.play().catch(error => {
+                            console.log('Error playing sound after unmuting:', error);
+                        });
+                    }).catch(error => {
+                        alert("Activez le son sur ce site pour entendre les notifications.");
+                    });
+                } else {
+                    console.log(`Sound file not accessible: ${soundFile}`);
+                }
+            })
+            .catch(error => {
+                console.log('Error fetching sound file:', error);
+            });
+    }
+
 });
