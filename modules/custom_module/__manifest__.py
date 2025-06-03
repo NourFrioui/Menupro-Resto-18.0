@@ -65,6 +65,7 @@
                 'custom_module/static/src/js/hw_printer_inherited.js',
                 'custom_module/static/src/xml/pos_discount_control_buttons_inherit.xml',
                 'custom_module/static/src/xml/point_of_sale_control_buttons_inherit.xml',
+                'custom_module/static/src/js/product_screen_inherit.js',
 
             ],
     },
