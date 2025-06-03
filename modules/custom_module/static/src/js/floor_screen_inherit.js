@@ -60,25 +60,41 @@ patch(FloorScreen.prototype, {
         this.unselectTables();
 
     },
+
     getChangeCount(table) {
-        console.log("this one")
-        super.getChangeCount(table);
+        const result = super.getChangeCount(table);
         const tableOrders = this.pos.models["pos.order"].filter(
             (o) => o.table_id?.id === table.id && !o.finalized
         );
-        console.log("tableOrders",tableOrders);
-        if (changeCount > 0 && Array.isArray(tableOrders) && tableOrders.length) {
+
+        console.log("tableOrders", tableOrders);
+
+        if (result.changes > 0 && tableOrders.length) {
             for (const order of tableOrders) {
                 if (order.pos_reference?.includes('Self-Order')) {
-                    if (order.table_id) {
-                        console.log('🔊 Self-Order détectée pour la table :', order.table_id.id);
-                        this.playSound('/custom_module/static/src/sounds/bell.wav');
-                        break;
+                    if (order.lastChangeCount === undefined) {
+                        order.lastChangeCount = 0;
+                    }
+                    if (result.changes !== order.lastChangeCount) {
+                        if (order.table_id) {
+                            console.log('🔊 Self-Order modifiée détectée pour la table :', order.table_id.number);
+                            this.playSound('/custom_module/static/src/sounds/bell.wav');
+                            order.lastChangeCount = result.changes;
+                            console.log("order.lastChangeCount",order.lastChangeCount);
+                            break;
+                        }
                     }
                 }
             }
         }
+        console.log("result ====>",result);
+
+        return result;
     },
+
+
+
+
     playSound(soundFile) {
         fetch(soundFile, { method: 'HEAD' })
             .then(response => {

@@ -41,6 +41,8 @@ patch(PosOrder.prototype, {
 
     async setup(vals) {
         await super.setup(vals);
+        console.log("setup pos PosOrder",vals);
+
 
         try {
             const result = await getTicketNumber(parseInt(vals.id));
