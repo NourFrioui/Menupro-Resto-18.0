@@ -66,35 +66,26 @@ patch(FloorScreen.prototype, {
         const tableOrders = this.pos.models["pos.order"].filter(
             (o) => o.table_id?.id === table.id && !o.finalized
         );
-
-        console.log("tableOrders", tableOrders);
-
         if (result.changes > 0 && tableOrders.length) {
             for (const order of tableOrders) {
                 if (order.pos_reference?.includes('Self-Order')) {
                     if (order.lastChangeCount === undefined) {
                         order.lastChangeCount = 0;
                     }
-                    console.log("order.lastLinesLength",order.lastLinesLength);
-                    console.log("order.lines.length",order.lines.length)
                     if (order.lastLinesLength === undefined) {
                         order.lastLinesLength = 0;
                     }
                     if (result.changes !== order.lastChangeCount || order.lastLinesLength !== order.lines.length) {
                         if (order.table_id) {
-                            console.log('🔊 Self-Order modifiée détectée pour la table :', order.table_id.number);
                             this.playSound('/custom_module/static/src/sounds/bell.wav');
                             order.lastChangeCount = result.changes;
                             order.lastLinesLength = order.lines.length;
-                            console.log("order.lastChangeCount",order.lastChangeCount);
                             break;
                         }
                     }
                 }
             }
         }
-        console.log("result ====>",result);
-
         return result;
     },
 
