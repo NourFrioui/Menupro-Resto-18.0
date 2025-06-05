@@ -4,11 +4,10 @@
     'version': '1.0',
     'installable': True,
     'application': True,
-    'depends': ['base', 'web','pos_self_order', 'point_of_sale', 'base_import', 'pos_restaurant','bus', 'pos_hr','hr'],
+    'depends': ['base', 'web','pos_self_order', 'point_of_sale', 'base_import', 'pos_restaurant','bus', 'pos_hr','hr', 'pos_discount'],
     'data': [
         #'security/ir.model.access.csv',
         'views/login_layout.xml',
-        #'views/pos_assets_index_inherit.xml',
         # Category module
         'views/categories/list_pos_category.xml',
         #'views/categories/list_pos_category.xml',
@@ -26,7 +25,8 @@
         'views/restaurant_floor.xml',
         'views/table_tags.xml',
         #Employee
-        'views/hr_employee_views_inherit.xml'
+        'views/hr_employee_views_inherit.xml',
+
     ],
     'assets': {
             'web.assets_backend': [
@@ -43,8 +43,9 @@
             'web.assets_frontend' : [
                 'custom_module/static/src/scss/login.scss',
                 'custom_module/static/src/scss/login_screen.scss',
+                'custom_module/static/src/img/favicon.ico',
 
-                ],
+            ],
             'point_of_sale._assets_pos': [
                 'custom_module/static/src/js/block_navigatio_bar.js',
                 'custom_module/static/src/scss/pos.scss',
@@ -54,13 +55,20 @@
                 'custom_module/static/src/xml/saver_screen_inherit.xml',
                 'custom_module/static/src/xml/cashier_name_inherit.xml',
                 'custom_module/static/src/xml/order_change_receipt_template_inherit.xml',
-                #'custom_module/static/src/js/pos_navbar_inherit.js',
+                'custom_module/static/src/js/pos_navbar_inherit.js',
+                'custom_module/static/src/xml/pos_navbar_template_inherit.xml',
                 'custom_module/static/src/js/pos_store_inherit.js',
                 'custom_module/static/src/js/pos_order_inherit.js',
                 'custom_module/static/src/js/floor_screen_inherit.js',
                 'custom_module/static/src/xml/receipt_header.xml',
                 'custom_module/static/src/js/pos_order_inherit.js',
+                'custom_module/static/src/js/action_widget_inherit.js',
                 'custom_module/static/src/js/hw_printer_inherited.js',
+                'custom_module/static/src/xml/pos_discount_control_buttons_inherit.xml',
+                'custom_module/static/src/xml/point_of_sale_control_buttons_inherit.xml',
+                'custom_module/static/src/js/product_screen_inherit.js',
+
+
             ],
     },
     'images': [
