@@ -8,7 +8,6 @@
     'data': [
         #'security/ir.model.access.csv',
         'views/login_layout.xml',
-        #'views/pos_assets_index_inherit.xml',
         # Category module
         'views/categories/list_pos_category.xml',
         #'views/categories/list_pos_category.xml',
