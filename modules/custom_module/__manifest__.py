@@ -25,7 +25,8 @@
         'views/restaurant_floor.xml',
         'views/table_tags.xml',
         #Employee
-        'views/hr_employee_views_inherit.xml'
+        'views/hr_employee_views_inherit.xml',
+
     ],
     'assets': {
             'web.assets_backend': [
@@ -42,6 +43,7 @@
             'web.assets_frontend' : [
                 'custom_module/static/src/scss/login.scss',
                 'custom_module/static/src/scss/login_screen.scss',
+                'custom_module/static/src/img/favicon.ico',
 
             ],
             'point_of_sale._assets_pos': [
@@ -65,6 +67,7 @@
                 'custom_module/static/src/xml/pos_discount_control_buttons_inherit.xml',
                 'custom_module/static/src/xml/point_of_sale_control_buttons_inherit.xml',
                 'custom_module/static/src/js/product_screen_inherit.js',
+
 
             ],
     },
