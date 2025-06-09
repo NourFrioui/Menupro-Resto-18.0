@@ -41,8 +41,6 @@ patch(PosOrder.prototype, {
 
     async setup(vals) {
         await super.setup(vals);
-        console.log("setup pos PosOrder",vals);
-
 
         try {
             const result = await getTicketNumber(parseInt(vals.id));
@@ -78,7 +76,6 @@ patch(PosOrder.prototype, {
      * @returns {boolean} true if the line was removed, false otherwise
      */
     removeOrderline(line) {
-        console.log("removeOrderline22", line);
         const linesToRemove = line.getAllLinesInCombo();
         for (const lineToRemove of linesToRemove) {
             if (lineToRemove.refunded_orderline_id?.uuid in this.uiState.lineToRefund) {
