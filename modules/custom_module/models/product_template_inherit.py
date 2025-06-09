@@ -17,12 +17,11 @@ class ProductTemplate(models.Model):
     picture = fields.Char(string='Picture')
     pos_preferred_location_id = fields.Many2one(
         'stock.location',
-        string="Emplacement préféré pour le POS",
+        string="Emplacement préféré ",
         domain=[('usage', '=', 'internal')],
         help="Lors des ventes en POS, le stock sera prioritairement prélevé de cet emplacement, même si la quantité disponible est insuffisante."
     )
     margin = fields.Float(string="Marge (%)", compute="_compute_margin", store=True)
-    kitchen_notes = fields.Text (string="Notes de cuisine")
 
     def sync_menus(self):
         """ To be triggered to synchronize menus in Odoo Menupro Restaurant and Menupro mobile """
