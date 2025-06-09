@@ -41,7 +41,6 @@ const disableInteractionOnOldOrders = (orderLines, isAdmin) => {
 patch(PosStore.prototype, {
     async setup() {
         await super.setup(...arguments);
-        console.log("setup pos store");
     },
 
     getPrintingChanges(order, diningModeUpdate) {
