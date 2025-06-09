@@ -76,7 +76,6 @@ patch(PosOrder.prototype, {
      * @returns {boolean} true if the line was removed, false otherwise
      */
     removeOrderline(line) {
-        console.log("removeOrderline22", line);
         const linesToRemove = line.getAllLinesInCombo();
         for (const lineToRemove of linesToRemove) {
             if (lineToRemove.refunded_orderline_id?.uuid in this.uiState.lineToRefund) {
