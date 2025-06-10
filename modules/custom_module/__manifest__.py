@@ -14,6 +14,7 @@
         #'views/categories/upsert_pos_category.xml',
         # Menus module
         'views/menus/list_menu.xml',
+        'views/point_of_sale_dashboard_inherit.xml',
         #'views/menus/list_menu.xml',
         #'views/menus/upsert_menu.xml',
         'views/menus/tree_products.xml',

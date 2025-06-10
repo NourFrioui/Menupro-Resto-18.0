@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+<record id="view_pos_config_kanban_replace_card" model="ir.ui.view">
+    <field name="name">pos.config.kanban.replace.card</field>
+    <field name="model">pos.config</field>
+    <field name="inherit_id" ref="point_of_sale.view_pos_config_kanban"/>
+    <field name="arch" type="xml">
+        <xpath expr="//t[@t-name='card']" position="replace">
+            <t t-name="card">
+                <div name="card_title" class="mb-4 ms-2">
+                    <field name="name" class="fw-bold fs-4 d-block"/>
+                    <div t-if="!record.current_session_id.raw_value &amp;&amp; record.pos_session_username.value" class="badge text-bg-info d-inline-block">Opened by <field name="pos_session_username"/></div>
+                    <div t-if="record.pos_session_state.raw_value == 'opening_control'" class="badge text-bg-info d-inline-block">Opening Control</div>
+                    <div t-if="record.pos_session_state.raw_value == 'closing_control'" class="badge text-bg-info d-inline-block">Closing Control</div>
+                    <div t-if="record.pos_session_state.raw_value == 'opened' and record.pos_session_duration.raw_value > 1" t-attf-class="badge bg-#{record.pos_session_duration.raw_value > 3 and 'danger' or 'warning'} d-inline-block"
+                            title="The session has been opened for an unusually long period. Please consider closing.">
+                            To Close
+                    </div>
+                </div>
+                <div class="row g-0 pb-4 ms-2 mt-auto">
+                    <div name="card_left" class="col-6">
+                        <button t-if="record.current_session_state.raw_value != 'closing_control'" class="btn btn-primary" name="open_ui" type="object">
+                            <t t-if="record.current_session_state.raw_value === 'opened'">Continue Selling</t>
+                            <t t-else="">Open Register</t>
+                        </button>
+                        <button t-else="" class="btn btn-secondary" name="open_existing_session_cb" type="object">Close</button>
+                    </div>
+                    <div class="col-6">
+                        <div t-if="record.last_session_closing_date.value" class="row">
+                            <div class="col-6">
+                                <span>Closing</span>
+                            </div>
+                            <field name="last_session_closing_date" class="col-6"/>
+                        </div>
+
+
+                        <a t-if="record.number_of_rescue_session.value > 0" class="col-12" name="open_opened_rescue_session_form" type="object">
+                            <field name="number_of_rescue_session"/> outstanding rescue session
+                        </a>
+                    </div>
+                </div>
+                <field name="current_user_id" widget="many2one_avatar_user" class="mt-auto ms-auto"/>
+            </t>
+        </xpath>
+    </field>
+</record>
+</odoo>
