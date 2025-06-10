@@ -29,6 +29,7 @@
         'views/hr_employee_views_inherit.xml',
         #Stock
         'views/stock/product_template_stock.xml',
+        'views/stock/stock_picking_views_inherit.xml',
 
 
     ],

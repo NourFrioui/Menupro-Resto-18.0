@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_picking_form_inherit_cost" model="ir.ui.view">
+        <field name="name">stock.picking.form.inherit.cost</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='move_ids_without_package']/list/field[@name='picked']" position="after">
+                <field name="cout_total" string="Coût Total" optional="show" sum="Total"/>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>
