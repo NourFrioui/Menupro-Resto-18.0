@@ -45,14 +45,15 @@ patch(PosOrder.prototype, {
         try {
             const result = await getTicketNumber(parseInt(vals.id));
 
-            if (result === 0) {
-                const localTicketNumber = generateLocalTicketNumber();
-                this.ticket_number = localTicketNumber;
-                vals.ticket_number = localTicketNumber;
-            } else {
+            if (typeof result === "number" && result !== undefined && result !== null) {
                 this.ticket_number = result;
                 vals.ticket_number = result;
                 localStorage.setItem("pos.ticket_number", result.toString());
+            } else {
+                const localTicketNumber = generateLocalTicketNumber();
+                this.ticket_number = localTicketNumber;
+                vals.ticket_number = localTicketNumber;
+                console.warn("getTicketNumber returned undefined or invalid, using fallback");
             }
         } catch (error) {
             const fallbackNumber = generateLocalTicketNumber();
@@ -60,8 +61,8 @@ patch(PosOrder.prototype, {
             vals.ticket_number = fallbackNumber;
             console.error("Error in setup ticket number, fallback to offline", error);
         }
-
     },
+
     /* This function is called after the order has been successfully sent to the preparation tool(s). */
     // @Override
     updateLastOrderChange() {
