@@ -4,7 +4,7 @@
     'version': '1.0',
     'installable': True,
     'application': True,
-    'depends': ['base', 'web','pos_self_order', 'point_of_sale', 'base_import', 'pos_restaurant','bus', 'pos_hr','hr', 'pos_discount'],
+    'depends': ['base', 'web','pos_self_order', 'point_of_sale', 'base_import', 'pos_restaurant','bus', 'pos_hr','hr', 'pos_discount','mrp'],
     'data': [
         #'security/ir.model.access.csv',
         'views/login_layout.xml',
@@ -14,6 +14,7 @@
         #'views/categories/upsert_pos_category.xml',
         # Menus module
         'views/menus/list_menu.xml',
+         'views/point_of_sale_dashboard_inherit.xml',
         #'views/menus/list_menu.xml',
         #'views/menus/upsert_menu.xml',
         'views/menus/tree_products.xml',
@@ -28,6 +29,8 @@
         'views/hr_employee_views_inherit.xml',
         #Stock
         'views/stock/product_template_stock.xml',
+        'views/stock/stock_picking_views_inherit.xml',
+        'views/stock/mrp_bom_views_inherit.xml',
 
 
     ],
