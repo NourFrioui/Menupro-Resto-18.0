@@ -14,3 +14,4 @@ from . import pos_session_inherit
 from . import res_config_settings
 from . import pos_order_line_inherit
 from . import stock_move_inherit
+from . import mrp_bom_inherit
