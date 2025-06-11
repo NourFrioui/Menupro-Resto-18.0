@@ -21,11 +21,48 @@ class PosOrder(models.Model):
         result = super().sync_from_ui(orders)
         created_orders = result.get('pos.order', {})
         for order in created_orders:
+            self._sync_reservation(order)
             self._sync_to_menupro(order)
             # Generate a ticket_number
             if 'ticket_number' not in order:
                 order['ticket_number'] = self.get_today_ticket_number()
+
         return result
+
+    @api.model
+    def _sync_reservation(self, order):
+        odoo_secret_key = tools.config.get("odoo_secret_key")
+        table_id = order.get('table_id')
+        print("order table", table_id)
+
+        restaurant_table = self.env['restaurant.table'].search([('id', '=', table_id)])
+        print("restaurant_table", restaurant_table)
+
+        if restaurant_table:
+            menupro_id = restaurant_table.menupro_id
+
+            if menupro_id:
+                try:
+                    # Vérifie si la commande est annulée
+                    if order.get('state') in ["cancel", "paid"]:
+                        data = {'reserved': False}
+                    else:
+                        data = {'reserved': True}
+
+                    response = requests.patch(
+                        f'https://api.menupro.tn/restaurant-tables/{menupro_id}',
+                        json=data,
+                        headers={'x-odoo-key': odoo_secret_key}
+                    )
+                    response.raise_for_status()
+                    print("response", response)
+                except requests.RequestException as e:
+                    print(f"API request failed for {menupro_id}: {e}")
+            else:
+                print(f"Invalid menupro_id: {menupro_id}")
+
+
+
 
     @api.model
     def _sync_to_menupro(self, order):
