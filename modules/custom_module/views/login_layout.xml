@@ -8,9 +8,5 @@
         <xpath expr="//link[@rel='shortcut icon']" position="replace">
             <link type="image/x-icon" rel="shortcut icon" href="/custom_module/static/src/img/favicon.ico"/>
         </xpath>
-
-        <xpath expr="//div[contains(@class, 'mb-3')][1]" position="attributes">
-            <attribute name="t-if">False</attribute>
-        </xpath>
     </template>
 </odoo>
