@@ -22,6 +22,21 @@ class ProductTemplate(models.Model):
         help="Lors des ventes en POS, le stock sera prioritairement prélevé de cet emplacement, même si la quantité disponible est insuffisante."
     )
     margin = fields.Float(string="Marge (%)", compute="_compute_margin", store=True)
+    bom_cost = fields.Float(
+        string="Coût Nomenclature",
+        compute='_compute_bom_cost',
+        digits='Product Price',
+        help="Coût calculé basé sur la nomenclature principale"
+    )
+
+    @api.depends('bom_ids.cost_per_unit')
+    def _compute_bom_cost(self):
+        for product in self:
+            # Chercher la nomenclature principale active
+            main_bom = product.bom_ids.filtered(
+                lambda b: b.active and b.type == 'normal' and not b.product_id
+            )[:1]  # Prendre seulement la première
+            product.bom_cost = main_bom.cost_per_unit if main_bom else 0.0
 
     def sync_menus(self):
         """ To be triggered to synchronize menus in Odoo Menupro Restaurant and Menupro mobile """

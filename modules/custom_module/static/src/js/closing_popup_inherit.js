@@ -2,7 +2,6 @@
 
 import { patch } from "@web/core/utils/patch";
 import { ClosePosPopup } from "@point_of_sale/app/navbar/closing_popup/closing_popup";
-import { _t } from "@web/core/l10n/translation";
 import { usePos } from "@point_of_sale/app/store/pos_hook";
 import { ask } from "@point_of_sale/app/store/make_awaitable_dialog";
 import { useService } from "@web/core/utils/hooks";
@@ -48,14 +47,14 @@ patch(ClosePosPopup.prototype, {
 
         if (stockResult.errors && stockResult.errors.length > 0) {
             const response = await ask(this.dialog, {
-                title: _t("Avertissement de Stock"),
-                body: _t(
+                title: ("Avertissement de Stock"),
+                body: (
                     "Les problèmes de stock suivants ont été détectés :\n\n" +
                     stockResult.errors.join("\n") +
                     "\n\nVoulez-vous continuer à fermer la session ?"
                 ),
-                confirmLabel: _t("Oui"),
-                cancelLabel: _t("Annuler"),
+                confirmLabel: ("Oui"),
+                cancelLabel: ("Annuler"),
             });
 
             if (response) {
